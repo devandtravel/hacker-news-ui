@@ -1,0 +1,27 @@
+@use '../../../global';
+
+$backgroundColorLayout: global.$backgroundColor;
+
+.LayoutDefault {
+    display: flex;
+    flex-direction: column;
+    background-color: $backgroundColorLayout;
+    width: 100%;
+    height: fit-content;
+}
+
+.LayoutClearHTML {
+    display: flex;
+    flex-direction: column;
+    background-color: $backgroundColorLayout;
+}
+
+.LayoutBlog {
+    display: flex;
+    flex-direction: column;
+    background-color: $backgroundColorLayout;
+    width: 100%;
+    height: fit-content;
+    min-height: 100vh;
+    padding: 0 1vw 0 1vw;
+}

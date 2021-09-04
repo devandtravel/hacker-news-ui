@@ -1,4 +1,4 @@
-import * as types from '../actions/types'
+import * as types from './types'
 
 export async function request(
   url = `${types.HN_BASE_URL}/${types.HN_END_POINT}${types.HN_JSON_QUERY}`,

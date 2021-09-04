@@ -1,0 +1,23 @@
+@use '../../../global';
+
+$heightHeader: 10vh;
+$widthHeader: 100%;
+
+.Header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: global.$color;
+  background-color: global.$backgroundColor;
+  border-color: global.$borderColor;
+
+  min-height: 10vh;
+  width: $widthHeader;
+  height: $heightHeader;
+
+  padding: 1% 0;
+
+  font-size: calc(10px + 2vmin);
+}

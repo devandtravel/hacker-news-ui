@@ -1,0 +1,11 @@
+@use '../../../global';
+
+.Feed {
+    // border: global.$borderRadius global.$borderStyle;
+    border-color: global.$borderColor;
+    background-color: global.$backgroundColor;
+    height: fit-content;
+    width: 60%;
+    justify-content: flex-end;
+    padding: 1% 0 0 0;
+}

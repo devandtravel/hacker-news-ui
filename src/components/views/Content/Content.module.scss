@@ -1,0 +1,9 @@
+@use '../../../global';
+
+.Content {
+    // border: global.$borderRadius global.$borderStyle;
+    border-color: global.$borderColor;
+    background-color: global.$backgroundColor;
+    display: flex;
+    min-height: 80vh;
+}
