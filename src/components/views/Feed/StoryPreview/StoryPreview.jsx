@@ -1,21 +1,28 @@
 import styles from './StoryPreview.module.scss'
-import {useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 const activeStyle = { fontWeight: 'bold' }
 
 export const StoryPreview = ({
   id = 0,
   title = 'default story title',
+  author = 'default Author',
+  score = 0,
   date = 'default current date: ' + Date().toString()
 }) => {
   let history = useHistory()
-  return(
-  <div className={styles.StoryPreview}>
-      <h1 style={activeStyle} onClick={() => history.push(`/story/${id}`)}>
+  return (
+    <div
+      className={styles.StoryPreview}
+      onClick={() => history.push(`/story/${id}`)}>
+      <h1 style={activeStyle} pointer='true'>
         {title}
       </h1>
-    <div className={styles.Time}>
-      <time dateTime={date}>{date}</time>
+      <p>Author: {author}</p>
+      <p>Score: {score}</p>
+      <small className={styles.Time}>
+        <time dateTime={date}>{date}</time>
+      </small>
     </div>
-  </div>
-)}
+  )
+}
