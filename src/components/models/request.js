@@ -1,7 +1,7 @@
 import * as types from './types'
 
 export async function request(
-  url = `${types.HN_BASE_URL}/${types.HN_END_POINT}${types.HN_JSON_QUERY}`,
+  url = `${types.BASE_URL}/${types.END_POINT}${types.JSON_QUERY}`,
   method = 'GET',
   requestData = null
 ) {

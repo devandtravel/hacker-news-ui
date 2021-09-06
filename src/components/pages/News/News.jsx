@@ -1,7 +1,8 @@
 import { Layout } from '../../views/Layout/Layout'
 import { Header } from '../../views/Header/Header'
 import { StoryPreview } from '../../views/Feed/StoryPreview/StoryPreview'
-import posts from '../../models/fetchPosts'
+// import { stories } from '../../models/stories' // TODO: for dev, no fetching, remove
+import { stories } from '../../models/fetchStory'
 import { Stack } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { Paper } from '@mui/material'
@@ -16,20 +17,21 @@ const Item = styled(Paper)(({ theme }) => ({
 export const News = () => {
   return (
     <Layout layoutStyle='blog'>
-      <Header isRefreshButton={true} />
+      <Header isRefreshNewsButton={true} />
       <Stack direction='column' sx={{ mt: 2 }} spacing={1} alignItems='stretch'>
-        {posts.slice(0, 100).map(
-          post =>
-            post !== null && (
+        {stories.slice(0, 100).map(
+          story =>
+            story !== null && (
               <Item key={v4()}>
                 <StoryPreview
-                  id={post.id}
-                  title={post.title}
+                  story={story}
+                  id={story.id}
+                  title={story.title}
                   date={
-                    '!!! WTF ' + new Date(post.time).toString() + ' WTF !!!'
+                    '!!! WTF ' + new Date(story.time).toString() + ' WTF !!!'
                   } // TODO: remove
-                  author={post.by}
-                  score={post.score}
+                  author={story.by}
+                  score={story.score}
                 />
               </Item>
             )

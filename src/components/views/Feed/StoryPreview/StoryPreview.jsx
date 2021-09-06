@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 const activeStyle = { fontWeight: 'bold' }
 
 export const StoryPreview = ({
+  story = story,
   id = 0,
   title = 'default story title',
   author = 'default Author',
@@ -11,10 +12,16 @@ export const StoryPreview = ({
   date = 'default current date: ' + Date().toString()
 }) => {
   let history = useHistory()
+
   return (
     <div
       className={styles.StoryPreview}
-      onClick={() => history.push(`/story/${id}`)}>
+      onClick={() =>
+        history.push({
+          pathname: `/story/${id}`,
+          story
+        })
+      }>
       <h1 style={activeStyle} pointer='true'>
         {title}
       </h1>

@@ -14,21 +14,6 @@ import { LoadingButton } from '@mui/lab'
 import { useHistory } from 'react-router-dom'
 import { Button } from '@mui/material'
 
-function HideOnScroll(props) {
-  const { children } = props
-  const trigger = useScrollTrigger()
-
-  return (
-    <Slide appear={false} direction='down' in={!trigger}>
-      {children}
-    </Slide>
-  )
-}
-
-HideOnScroll.propTypes = {
-  children: PropTypes.element.isRequired
-}
-
 export const Header = props => {
   const theme = useTheme()
   const colorMode = useContext(ColorModeContext)
@@ -36,6 +21,26 @@ export const Header = props => {
   let history = useHistory()
   const returnToNews = () => {
     history.push('/news')
+  }
+  const HideOnScroll = props => {
+    const { children } = props
+    const trigger = useScrollTrigger()
+
+    return (
+      <Slide appear={false} direction='down' in={!trigger}>
+        {children}
+      </Slide>
+    )
+  }
+
+  HideOnScroll.propTypes = {
+    children: PropTypes.element.isRequired
+  }
+
+  // TODO: https://stackoverflow.com/questions/56450975/to-fix-cancel-all-subscriptions-and-asynchronous-tasks-in-a-useeffect-cleanup-f
+  const setAndUnsetLoading = () => {
+    setLoading(true)
+    setTimeout(() => setLoading(false), 1000)
   }
 
   return (
@@ -51,26 +56,35 @@ export const Header = props => {
             }}>
             <h1>Hacker News</h1>
             <div>
-              {props.isRefreshButton ? (
+              {props.isRefreshNewsButton ? (
                 <LoadingButton
                   sx={{ m: 1, p: 1, pl: 2, pr: 2 }}
                   loading={loading}
                   loadingIndicator='Loading...'
                   variant='contained'
                   size='medium'
-                  onClick={() => {
-                    setLoading(true)
-                    setTimeout(() => setLoading(false), 1000)
-                  }}>
+                  onClick={setAndUnsetLoading}>
                   Refresh News
                 </LoadingButton>
               ) : (
-                <Button
-                  onClick={returnToNews}
-                  sx={{ m: 1, p: 1, pl: 2, pr: 2 }}
-                  variant='contained'>
-                  Return to news
-                </Button>
+                <>
+                  <LoadingButton
+                    sx={{ m: 1, p: 1, pl: 2, pr: 2 }}
+                    loading={loading}
+                    loadingIndicator='Loading...'
+                    variant='contained'
+                    size='medium'
+                    onClick={setAndUnsetLoading}>
+                    Refresh Comments
+                  </LoadingButton>
+
+                  <Button
+                    onClick={returnToNews}
+                    sx={{ m: 1, p: 1, pl: 2, pr: 2 }}
+                    variant='contained'>
+                    Return to news
+                  </Button>
+                </>
               )}
               <IconButton
                 sx={{ m: 1, p: 1 }}
