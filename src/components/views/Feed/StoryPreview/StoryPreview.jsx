@@ -5,6 +5,7 @@ const activeStyle = { fontWeight: 'bold' }
 
 export const StoryPreview = ({
   story = story,
+  index = index,
   id = 0,
   title = 'default story title',
   author = 'default Author',
@@ -23,7 +24,7 @@ export const StoryPreview = ({
         })
       }>
       <h1 style={activeStyle} pointer='true'>
-        {title}
+        {`${index + 1}. ${title}`}
       </h1>
       <p>Author: {author}</p>
       <p>Score: {score}</p>
