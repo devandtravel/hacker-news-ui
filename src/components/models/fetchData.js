@@ -10,7 +10,7 @@ export const fetchItem = async id => await request(`${types.BASE_URL}/item/${id}
 export const stories = []
 let story = null
 let storyIDs = []
-storyIDs = await fetchStoryIDs(5)
+storyIDs = await fetchStoryIDs(70)
 for (let index = 0; index < storyIDs.length; index++) {
   story = await fetchItem(storyIDs[index])
   stories.push(story)

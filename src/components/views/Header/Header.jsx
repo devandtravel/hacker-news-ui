@@ -47,7 +47,7 @@ export const Header = props => {
     <>
       <CssBaseline />
       <HideOnScroll {...props}>
-        <AppBar position='sticky' sx={{ m: 0, p: 0 }}>
+        <AppBar position='static' sx={{ m: 0, p: 0 }}>
           <Toolbar
             sx={{
               display: 'flex',
@@ -78,23 +78,13 @@ export const Header = props => {
                     Refresh Comments
                   </LoadingButton>
 
-                  <Button
-                    onClick={returnToNews}
-                    sx={{ m: 1, p: 1, pl: 2, pr: 2 }}
-                    variant='contained'>
+                  <Button onClick={returnToNews} sx={{ m: 1, p: 1, pl: 2, pr: 2 }} variant='contained'>
                     Return to news
                   </Button>
                 </>
               )}
-              <IconButton
-                sx={{ m: 1, p: 1 }}
-                onClick={colorMode.toggleColorMode}
-                color='inherit'>
-                {theme.palette.mode === 'dark' ? (
-                  <Brightness7Icon sx={{ m: 1 }} />
-                ) : (
-                  <Brightness4Icon sx={{ m: 1 }} />
-                )}
+              <IconButton sx={{ m: 1, p: 1 }} onClick={colorMode.toggleColorMode} color='inherit'>
+                {theme.palette.mode === 'dark' ? <Brightness7Icon sx={{ m: 1 }} /> : <Brightness4Icon sx={{ m: 1 }} />}
               </IconButton>
               {theme.palette.mode} mode
             </div>
