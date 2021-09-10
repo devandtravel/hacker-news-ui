@@ -1,26 +1,30 @@
 import { useContext, useState } from 'react'
-import { ColorModeContext } from '../../../components/pages/Routes'
-import { IconButton } from '@mui/material'
+
+import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
-import { useTheme } from '@mui/material/styles'
-import PropTypes from 'prop-types'
-import { AppBar } from '@mui/material'
-import { Toolbar } from '@mui/material'
-import { useScrollTrigger } from '@mui/material'
-import { CssBaseline } from '@mui/material'
-import { Slide } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
-import { useHistory } from 'react-router-dom'
-import { Button } from '@mui/material'
+import { AppBar, Button, CssBaseline, IconButton, Slide, Toolbar, useScrollTrigger } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
+
+import { ColorModeContext } from '../pages/Routes'
+import { fetchStory } from '../redux/reducers/asyncActions/fetchStory'
+import { fetchStoryIDs } from '../redux/reducers/asyncActions/fetchStoryIDs'
+import { deleteStories } from '../redux/reducers/items/storiesReducer'
+import { deleteComments } from '../redux/reducers/items/commentsReducer'
+import { fetchComment } from '../redux/reducers/asyncActions/fetchComment'
 
 export const Header = props => {
+  const story = props.story
   const theme = useTheme()
   const colorMode = useContext(ColorModeContext)
   const [loading, setLoading] = useState(false)
   let history = useHistory()
   const returnToNews = () => {
-    history.push('/news')
+    history.push('/')
   }
   const HideOnScroll = props => {
     const { children } = props
@@ -36,11 +40,21 @@ export const Header = props => {
   HideOnScroll.propTypes = {
     children: PropTypes.element.isRequired
   }
+  const dispatch = useDispatch()
+  const storyIDs = useSelector(state => state.storyIDs)
 
-  // TODO: https://stackoverflow.com/questions/56450975/to-fix-cancel-all-subscriptions-and-asynchronous-tasks-in-a-useeffect-cleanup-f
-  const setAndUnsetLoading = () => {
+  const refreshNews = () => {
     setLoading(true)
-    setTimeout(() => setLoading(false), 1000)
+    dispatch(deleteStories())
+    dispatch(fetchStoryIDs())
+    storyIDs && storyIDs.map(storyID => dispatch(fetchStory(storyID)))
+    setLoading(false)
+  }
+  const refreshComments = () => {
+    setLoading(true)
+    dispatch(deleteComments())
+    story && story.kids && story.kids.map(commentID => dispatch(fetchComment(commentID)))
+    setLoading(false)
   }
 
   return (
@@ -63,7 +77,7 @@ export const Header = props => {
                   loadingIndicator='Loading...'
                   variant='contained'
                   size='medium'
-                  onClick={setAndUnsetLoading}>
+                  onClick={() => refreshNews()}>
                   Refresh News
                 </LoadingButton>
               ) : (
@@ -74,7 +88,7 @@ export const Header = props => {
                     loadingIndicator='Loading...'
                     variant='contained'
                     size='medium'
-                    onClick={setAndUnsetLoading}>
+                    onClick={() => refreshComments()}>
                     Refresh Comments
                   </LoadingButton>
 

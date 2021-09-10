@@ -1,18 +1,20 @@
-import './index.scss'
-
 import ReactDOM from 'react-dom'
 
+import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
-import { Routes } from './components/pages/Routes'
 
 import { StyledEngineProvider } from '@mui/material/styles'
 
+import { Routes } from './pages/Routes'
+import { store } from './redux'
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <StyledEngineProvider injectFirst>
-        <Routes />
+        <Provider store={store}>
+          <Routes />
+        </Provider>
       </StyledEngineProvider>
     </BrowserRouter>
   </React.StrictMode>,

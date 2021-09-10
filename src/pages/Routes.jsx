@@ -1,8 +1,11 @@
-import { Redirect, Route, Switch } from 'react-router-dom'
-import { createContext, useState, useMemo } from 'react'
-import { News } from './News/News'
-import { Story } from './Story/Story'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { createContext, useMemo, useState } from 'react'
+
+import { Route, Switch } from 'react-router-dom'
+
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+
+import { News } from './News'
+import { Story } from './Story'
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} })
 export const Routes = () => {
@@ -30,10 +33,8 @@ export const Routes = () => {
     <Switch>
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
-          <Route path='/news' component={News} />
+          <Route path='/' exact component={News} />
           <Route path='/story/:id' component={Story} />
-          <Redirect from={'/'} to={'news'} exact />
-          {/* <Route render={() => <h1>404</h1>} /> */}
         </ThemeProvider>
       </ColorModeContext.Provider>
     </Switch>
